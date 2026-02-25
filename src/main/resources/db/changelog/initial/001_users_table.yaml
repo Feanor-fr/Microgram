@@ -1,0 +1,58 @@
+databaseChangeLog:
+  - changeSet:
+      id: 001-users-table
+      author: Melkor
+      changes:
+        - createTable:
+            tableName: users
+            columns:
+              - column:
+                  name: email
+                  type: varchar(100)
+                  constraints:
+                    primaryKey: true
+                    nullable: false
+              - column:
+                  name: password
+                  type: varchar(100)
+                  constraints:
+                    nullable: false
+              - column:
+                  name: login
+                  type: varchar(100)
+                  constraints:
+                    nullable: false
+              - column:
+                  name: user_name
+                  type: varchar(100)
+                  constraints:
+                    nullable: false
+              - column:
+                  name: description
+                  type: varchar(400)
+                  constraints:
+                    nullable: false
+              - column:
+                  name: avatar
+                  type: varchar(100)
+              - column:
+                  name: followers
+                  type: integer
+                  constraints:
+                    nullable: false
+              - column:
+                  name: subscriptions
+                  type: integer
+                  constraints:
+                    nullable: false
+              - column:
+                  name: role_name
+                  type: int
+                  constraints:
+                    nullable: false
+              - column:
+                  name: enabled
+                  type: boolean
+                  defaultValueBoolean: true
+                  constraints:
+                    nullable: false

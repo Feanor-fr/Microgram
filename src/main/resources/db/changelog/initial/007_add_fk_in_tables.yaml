@@ -1,0 +1,76 @@
+databaseChangeLog:
+  - changeSet:
+      id: 007-add-fk-in-tables
+      author: Melkor
+      changes:
+        - addForeignKeyConstraint:
+            baseTableName: users
+            baseColumnNames: role_name
+            referencedTableName: roles
+            referencedColumnNames: id
+            constraintName: fk_users_roles
+            onUpdate: cascade
+            onDelete: restrict
+
+        - addForeignKeyConstraint:
+            baseTableName: subscriptions
+            baseColumnNames: new_follower
+            referencedTableName: users
+            referencedColumnNames: email
+            constraintName: fk_new_follower_users
+            onUpdate: cascade
+            onDelete: cascade
+
+        - addForeignKeyConstraint:
+            baseTableName: subscriptions
+            baseColumnNames: new_subscript
+            referencedTableName: users
+            referencedColumnNames: email
+            constraintName: fk_new_subscript_users
+            onUpdate: cascade
+            onDelete: cascade
+
+        - addForeignKeyConstraint:
+            baseTableName: publications
+            baseColumnNames: owner
+            referencedTableName: users
+            referencedColumnNames: email
+            constraintName: fk_publications_users
+            onUpdate: cascade
+            onDelete: cascade
+
+        - addForeignKeyConstraint:
+            baseTableName: likes
+            baseColumnNames: owner_like
+            referencedTableName: users
+            referencedColumnNames: email
+            constraintName: fk_owner_like_users
+            onUpdate: cascade
+            onDelete: cascade
+
+        - addForeignKeyConstraint:
+            baseTableName: likes
+            baseColumnNames: publication_id
+            referencedTableName: publications
+            referencedColumnNames: id
+            constraintName: fk_likes_publications
+            onUpdate: cascade
+            onDelete: cascade
+
+        - addForeignKeyConstraint:
+            baseTableName: comments
+            baseColumnNames: owner_comment
+            referencedTableName: users
+            referencedColumnNames: email
+            constraintName: fk_comments_users
+            onUpdate: cascade
+            onDelete: cascade
+
+        - addForeignKeyConstraint:
+            baseTableName: comments
+            baseColumnNames: publication_id
+            referencedTableName: publications
+            referencedColumnNames: id
+            constraintName: fk_comments_publications
+            onUpdate: cascade
+            onDelete: cascade

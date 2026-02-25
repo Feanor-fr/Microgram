@@ -1,0 +1,25 @@
+databaseChangeLog:
+  - changeSet:
+      id: 004-create-subscriptions-table
+      author: Melkor
+      changes:
+        - createTable:
+            tableName: subscriptions
+            columns:
+              - column:
+                  name: id
+                  type: integer
+                  autoIncrement: true
+                  constraints:
+                    primaryKey: true
+                    nullable: false
+              - column:
+                  name: new_follower
+                  type: varchar(100)
+                  constraints:
+                    nullable: false
+              - column:
+                  name: new_subscript
+                  type: varchar(100)
+                  constraints:
+                    nullable: false

@@ -1,0 +1,25 @@
+databaseChangeLog:
+  - changeSet:
+      id: 005-create-likes-table
+      author: Melkor
+      changes:
+        - createTable:
+            tableName: likes
+            columns:
+              - column:
+                  name: id
+                  type: integer
+                  autoIncrement: true
+                  constraints:
+                    primaryKey: true
+                    nullable: false
+              - column:
+                  name: owner_like
+                  type: varchar(100)
+                  constraints:
+                    nullable: false
+              - column:
+                  name: publication_id
+                  type: integer
+                  constraints:
+                    nullable: false

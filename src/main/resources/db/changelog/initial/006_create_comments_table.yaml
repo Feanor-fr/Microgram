@@ -1,0 +1,35 @@
+databaseChangeLog:
+  - changeSet:
+      id: 006-create-comments-table
+      author: Melkor
+      changes:
+        - createTable:
+            tableName: comments
+            columns:
+              - column:
+                  name: id
+                  type: integer
+                  autoIncrement: true
+                  constraints:
+                    primaryKey: true
+                    nullable: false
+              - column:
+                  name: comment_text
+                  type: varchar(500)
+                  constraints:
+                    nullable: false
+              - column:
+                  name: created_date
+                  type: date
+                  constraints:
+                    nullable: false
+              - column:
+                  name: owner_comment
+                  type: varchar(100)
+                  constraints:
+                    nullable: false
+              - column:
+                  name: publication_id
+                  type: integer
+                  constraints:
+                    nullable: false
