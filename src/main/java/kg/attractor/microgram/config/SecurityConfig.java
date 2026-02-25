@@ -34,6 +34,8 @@ public class SecurityConfig {
                         .permitAll()
                 )
                 .authorizeHttpRequests(authorizeRequest -> authorizeRequest
+                        .requestMatchers("/users/avatar").authenticated()
+                        .requestMatchers("/users/profile/**").permitAll()
                         .requestMatchers("/publication/**").permitAll()
                         .requestMatchers("/auth/**").permitAll()
                         .requestMatchers("/error").permitAll()
