@@ -24,7 +24,7 @@ public class SecurityConfig {
                 .formLogin(login -> login
                         .loginPage("/auth/login")
                         .loginProcessingUrl("/auth/login")
-//                        .successHandler()
+                        .defaultSuccessUrl("/")
 
                         .failureUrl("/auth/login?error=true")
                         .permitAll())
@@ -34,42 +34,12 @@ public class SecurityConfig {
                         .permitAll()
                 )
                 .authorizeHttpRequests(authorizeRequest -> authorizeRequest
-
-                        .requestMatchers(HttpMethod.POST, "/resumes").hasAuthority("Applicant")
-                        .requestMatchers(HttpMethod.PUT, "/resumes/**").hasAuthority("Applicant")
-                        .requestMatchers(HttpMethod.DELETE, "/resumes/**").hasAuthority("Applicant")
-                        .requestMatchers("/responses/**").hasAuthority("Applicant")
-                        .requestMatchers("/education/**").hasAuthority("Applicant")
-                        .requestMatchers( "/workExp/**").hasAuthority("Applicant")
-                        .requestMatchers("/contactInfo/**").hasAuthority("Applicant")
-
-                        .requestMatchers(HttpMethod.POST, "/vacancies").hasAuthority("Employer")
-                        .requestMatchers(HttpMethod.PUT, "/vacancies/**").hasAuthority("Employer")
-                        .requestMatchers(HttpMethod.DELETE, "/vacancies/**").hasAuthority("Employer")
-                        .requestMatchers(HttpMethod.GET, "/users/responded/**").hasAuthority("Employer")
-
-//                        .requestMatchers(HttpMethod.GET, "/users/companies").hasAuthority("Applicant")
-                        .requestMatchers(HttpMethod.PUT, "/users/**").authenticated()
-                        .requestMatchers(HttpMethod.POST, "/users/avatar").authenticated()
-                        .requestMatchers(HttpMethod.GET, "/resumes/**").authenticated()
-                        .requestMatchers(HttpMethod.GET, "/users/**").authenticated()
-
-                        .requestMatchers(HttpMethod.POST, "/auth/register").permitAll()
-                        .requestMatchers(HttpMethod.GET, "/auth/register").permitAll()
-                                .requestMatchers("/auth/login/**").permitAll()
-                        .requestMatchers(HttpMethod.POST, "/users").permitAll()
-
-                                .requestMatchers(HttpMethod.GET, "/auth/forgot_password/**").permitAll()
-                                .requestMatchers(HttpMethod.POST, "/auth/forgot_password/**").permitAll()
-                                .requestMatchers(HttpMethod.GET, "/auth/reset_password/**").permitAll()
-                                .requestMatchers(HttpMethod.POST, "/auth/reset_password/**").permitAll()
-                                .requestMatchers("/changeLanguage").permitAll()
-
-                                .requestMatchers(HttpMethod.GET, "/").permitAll()
-                        .requestMatchers(HttpMethod.GET, "/vacancies/**").permitAll()
+                        .requestMatchers("/publication/**").permitAll()
+                        .requestMatchers("/auth/**").permitAll()
+                        .requestMatchers("/error").permitAll()
+                        .requestMatchers(HttpMethod.GET, "/").permitAll()
 
                         .anyRequest().authenticated()
-
                 );
 
         return http.build();
