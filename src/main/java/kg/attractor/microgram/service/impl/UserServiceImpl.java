@@ -57,8 +57,10 @@ public class UserServiceImpl implements UserService {
         User user = repository.findById(finalEmail)
                 .orElseThrow(UserNotFoundException::new);
 
+        Integer publicationCount = user.getPublications().size();
+
         return ProfileDto.builder()
-                .user(ConvertHelper.convertToUserDtoForView(user))
+                .user(ConvertHelper.convertToUserDtoForView(user, publicationCount))
                 .isOwner(authUser != null && authUser.getEmail().equals(user.getEmail()))
                 .build();
     }

@@ -27,4 +27,9 @@ public class ImageController {
         imageService.create(imageDto);
         return HttpStatus.CREATED;
     }
+
+    @GetMapping("/pub/{filename}")
+    public ResponseEntity<?> getPublicationImage(@PathVariable String filename){
+        return imageService.downloadFile(filename, "publications");
+    }
 }

@@ -19,7 +19,13 @@
 
                     <#if isOwner>
                         <form action="/users/avatar" method="post" enctype="multipart/form-data" class="m-0">
-                            <#if _csrf??><input type="hidden" name="${_csrf.parameterName}" value="${_csrf.token}"></#if>
+                            <#if _csrf??>
+                                <input
+                                        type="hidden"
+                                        name="${(_csrf.parameterName)!'csrf-param-name'}"
+                                        value="${(_csrf.token)!'csrf-token'}"
+                                >
+                            </#if>
                             <label for="avatarInput" class="btn btn-outline-light btn-sm fw-bold mb-0" style="cursor: pointer;">Сменить фото</label>
                             <input type="file" id="avatarInput" name="file" accept="image/*" class="d-none" onchange="this.form.submit();">
                         </form>
@@ -44,7 +50,7 @@
         <div class="text-center py-5">
             <h4 class="text-secondary">Публикаций пока нет</h4>
             <#if isOwner>
-                <a href="/publications/create" class="btn btn-link text-info fw-bold">Добавить публикацию</a>
+                <a href="/publication/create" class="btn btn-link text-info fw-bold">Добавить публикацию</a>
             </#if>
         </div>
     </div>
