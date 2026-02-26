@@ -42,16 +42,37 @@
 
                 <div class="fw-bold">${profileUser.userName!""}</div>
                 <div class="text-secondary">${profileUser.description!""}</div>
+
+                <#if isOwner>
+                    <a href="/publication/create" class="btn btn-link text-info fw-bold">Добавить публикацию</a>
+                </#if>
+
             </div>
         </div>
 
         <hr class="border-secondary">
 
         <div class="text-center py-5">
-            <h4 class="text-secondary">Публикаций пока нет</h4>
-            <#if isOwner>
-                <a href="/publication/create" class="btn btn-link text-info fw-bold">Добавить публикацию</a>
-            </#if>
+            <div class="row row-cols-1 row-cols-md-3 g-4">
+                <#if publications?has_content>
+                    <#list publications as pub>
+                        <div class="col">
+                            <div class="card h-100 border-0 shadow-sm">
+                                <a href="/publication/${pub.id}">
+                                    <img src="/images/pub/${pub.photo}"
+                                         class="card-img-top"
+                                         style="aspect-ratio: 1/1; object-fit: cover;"
+                                         alt="Publication">
+                                </a>
+                            </div>
+                        </div>
+                    </#list>
+                <#else>
+                    <div class="col-12 text-center py-5">
+                        <h4 class="text-secondary">Публикаций пока нет</h4>
+                    </div>
+                </#if>
+            </div>
         </div>
     </div>
 

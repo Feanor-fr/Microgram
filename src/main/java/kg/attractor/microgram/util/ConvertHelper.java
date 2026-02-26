@@ -1,6 +1,7 @@
 package kg.attractor.microgram.util;
 
 import kg.attractor.microgram.dto.PublicationCreateDto;
+import kg.attractor.microgram.dto.PublicationViewDto;
 import kg.attractor.microgram.dto.UserDto;
 import kg.attractor.microgram.dto.UserDtoForView;
 import kg.attractor.microgram.model.Publication;
@@ -55,4 +56,16 @@ public class ConvertHelper {
     }
 
 
+    public static PublicationViewDto convertToPublicationViewDto(Publication publication){
+
+        return PublicationViewDto.builder()
+                .id(publication.getId())
+                .photo(publication.getPhoto())
+                .description(publication.getDescription())
+                .createdDate(publication.getCreatedDate())
+                .likes(publication.getLikes())
+                .comments(publication.getComments())
+                .owner(publication.getOwner().getLogin())
+                .build();
+    }
 }

@@ -1,7 +1,9 @@
 package kg.attractor.microgram.controller;
 
 import kg.attractor.microgram.dto.ProfileDto;
+import kg.attractor.microgram.dto.PublicationViewDto;
 import kg.attractor.microgram.model.User;
+import kg.attractor.microgram.service.PublicationService;
 import kg.attractor.microgram.service.UserService;
 import kg.attractor.microgram.util.UserHelper;
 import lombok.RequiredArgsConstructor;
@@ -18,6 +20,7 @@ import org.springframework.web.multipart.MultipartFile;
 @RequiredArgsConstructor
 public class UserController {
     private final UserService userService;
+    private final PublicationService publicationService;
     private final UserHelper userHelper;
 
 
@@ -30,6 +33,7 @@ public class UserController {
         model.addAttribute("profileUser", profile.getUser());
         model.addAttribute("isOwner", profile.getIsOwner());
         model.addAttribute("isAuthenticated", authUser != null);
+        model.addAttribute("publications", publicationService.viewAllUserPublications(profile.getUser().getEmail()));
 
         return "users/profile";
     }
