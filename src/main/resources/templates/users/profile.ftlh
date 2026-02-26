@@ -30,14 +30,24 @@
                             <input type="file" id="avatarInput" name="file" accept="image/*" class="d-none" onchange="this.form.submit();">
                         </form>
                     <#elseif isAuthenticated>
-                        <button class="btn btn-primary btn-sm fw-bold px-4">Подписаться</button>
+
+                        <button id="subscribeBtn"
+                                class="btn btn-primary btn-sm fw-bold px-4"
+                                data-email="${profileUser.email}">
+                            <#if isSubscribed>
+                                Подписки
+                            <#else>
+                                Подписаться
+                            </#if>
+                        </button>
+
                     </#if>
                 </div>
 
                 <div class="d-flex mb-3 gap-4">
                     <div><b>${profileUser.publicationsCount!0}</b> публикаций</div>
-                    <div><b>${profileUser.followers!0}</b> подписчики</div>
-                    <div><b>${profileUser.subscriptions!0}</b> подписки</div>
+                    <div><b class="followers-count">${profileUser.followers!0}</b> подписчики</div>
+                    <div><b class="subscriptions-count">${profileUser.subscriptions!0}</b> подписки</div>
                 </div>
 
                 <div class="fw-bold">${profileUser.userName!""}</div>
@@ -75,5 +85,5 @@
             </div>
         </div>
     </div>
-
+<script src="/static/js/profile.js"></script>
 </@main.layout>

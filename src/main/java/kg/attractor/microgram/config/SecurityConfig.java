@@ -35,9 +35,11 @@ public class SecurityConfig {
                 )
                 .authorizeHttpRequests(authorizeRequest -> authorizeRequest
                         .requestMatchers("/users/avatar").authenticated()
+                        .requestMatchers(HttpMethod.POST, "/users/subscribe").authenticated()
                         .requestMatchers("/publication/create").authenticated()
                         .requestMatchers(HttpMethod.POST, "/publication/delete/").authenticated()
                         .requestMatchers("/images/**").permitAll()
+                        .requestMatchers("/users/search").permitAll()
                         .requestMatchers("/users/profile/**").permitAll()
                         .requestMatchers("/publication/**").permitAll()
                         .requestMatchers("/auth/**").permitAll()

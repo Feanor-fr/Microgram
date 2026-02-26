@@ -6,8 +6,12 @@ import kg.attractor.microgram.dto.UserDtoForView;
 import kg.attractor.microgram.model.User;
 import org.springframework.web.multipart.MultipartFile;
 
+import java.util.List;
+
 public interface UserService {
     void create(UserDto userDto);
+
+    void save(User user);
 
     User getUserByEmail(String email);
 
@@ -20,4 +24,6 @@ public interface UserService {
     Boolean isLoginExist(String login);
 
     void photoForProfile(MultipartFile file, String email);
+
+    List<UserDtoForView> searchUsers(String word, String search);
 }

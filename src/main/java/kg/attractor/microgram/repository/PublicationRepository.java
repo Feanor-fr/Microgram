@@ -3,9 +3,11 @@ package kg.attractor.microgram.repository;
 import kg.attractor.microgram.model.Publication;
 import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.data.jpa.repository.Query;
+import org.springframework.stereotype.Repository;
 
 import java.util.List;
 
+@Repository
 public interface PublicationRepository extends JpaRepository<Publication, Integer> {
 
     List<Publication> findPublicationsByOwner_Email(String ownerEmail);

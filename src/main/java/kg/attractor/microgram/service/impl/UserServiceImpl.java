@@ -2,6 +2,7 @@ package kg.attractor.microgram.service.impl;
 
 import kg.attractor.microgram.dto.ProfileDto;
 import kg.attractor.microgram.dto.UserDto;
+import kg.attractor.microgram.dto.UserDtoForView;
 import kg.attractor.microgram.exception.UserNotFoundException;
 import kg.attractor.microgram.model.User;
 import kg.attractor.microgram.repository.UserRepository;
@@ -13,6 +14,8 @@ import lombok.RequiredArgsConstructor;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Service;
 import org.springframework.web.multipart.MultipartFile;
+
+import java.util.List;
 
 @Service
 @RequiredArgsConstructor
@@ -29,6 +32,11 @@ public class UserServiceImpl implements UserService {
         user.setRole(roleService.findRoleById(1));
         user.setPassword(passwordEncoder.encode(userDto.getPassword()));
 
+        repository.saveAndFlush(user);
+    }
+
+    @Override
+    public void save(User user){
         repository.saveAndFlush(user);
     }
 
@@ -90,5 +98,24 @@ public class UserServiceImpl implements UserService {
         imageService.deleteFile(oldAva, "images");
 
         repository.saveAndFlush(user);
+    }
+
+    @Override
+    public List<UserDtoForView> searchUsers(String word, String search){
+        List<User> searchUsers;
+
+        switch (search){
+            case "email" -> searchUsers = repository.findUsersByEmailContaining(word);
+            case "login" -> searchUsers = repository.findUsersByLoginContainingIgnoreCase(word);
+            case "userName" -> searchUsers = repository.findUsersByUserNameContainingIgnoreCase(word);
+            default -> searchUsers = List.of();
+        }
+
+        return searchUsers.stream()
+                .map( u ->
+                {Integer count = u.getPublications() != null ? u.getPublications().size() : 0;
+                    return ConvertHelper.convertToUserDtoForView(u, count);
+                }
+                ).toList();
     }
 }

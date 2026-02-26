@@ -5,6 +5,7 @@ import kg.attractor.microgram.dto.PublicationViewDto;
 import kg.attractor.microgram.dto.UserDto;
 import kg.attractor.microgram.dto.UserDtoForView;
 import kg.attractor.microgram.model.Publication;
+import kg.attractor.microgram.model.Subscription;
 import kg.attractor.microgram.model.User;
 
 import java.time.LocalDate;
@@ -67,5 +68,14 @@ public class ConvertHelper {
                 .comments(publication.getComments())
                 .owner(publication.getOwner().getLogin())
                 .build();
+    }
+
+    public static Subscription convertToSubscription(User follower, User subscriber){
+
+        return Subscription.builder()
+                .follower(follower)
+                .subscriber(subscriber)
+                .build();
+
     }
 }
