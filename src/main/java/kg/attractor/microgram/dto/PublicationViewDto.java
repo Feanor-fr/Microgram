@@ -20,4 +20,5 @@ public class PublicationViewDto{
     private Integer likes;
     private Integer comments;
     private String owner;
+    private Boolean likedByCurrentUser;
 }

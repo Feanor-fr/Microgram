@@ -1,10 +1,7 @@
 package kg.attractor.microgram.util;
 
 import kg.attractor.microgram.dto.*;
-import kg.attractor.microgram.model.Comment;
-import kg.attractor.microgram.model.Publication;
-import kg.attractor.microgram.model.Subscription;
-import kg.attractor.microgram.model.User;
+import kg.attractor.microgram.model.*;
 
 import java.time.LocalDate;
 
@@ -94,6 +91,14 @@ public class ConvertHelper {
                 .commentText(comment.getCommentText())
                 .createdDate(comment.getCreatedDate())
                 .ownerLogin(comment.getOwnerComment().getLogin())
+                .build();
+    }
+
+    public static Like convertToLike(User user, Publication publication ){
+
+        return Like.builder()
+                .ownerLike(user)
+                .publication(publication)
                 .build();
     }
 }

@@ -8,8 +8,10 @@ import kg.attractor.microgram.service.SubscriptionService;
 import kg.attractor.microgram.service.UserService;
 import kg.attractor.microgram.util.ConvertHelper;
 import lombok.RequiredArgsConstructor;
+import lombok.extern.slf4j.Slf4j;
 import org.springframework.stereotype.Service;
 
+@Slf4j
 @Service
 @RequiredArgsConstructor
 @Transactional
@@ -20,6 +22,9 @@ public class SubscriptionServiceImpl implements SubscriptionService {
 
     @Override
     public boolean toggleSubscription(String followerEmail, String subscriberEmail) {
+
+        log.info("follower {}", followerEmail);
+        log.info("subscriber {}", subscriberEmail);
 
         boolean exists = repository
                 .existsByFollower_EmailAndSubscriber_Email(followerEmail, subscriberEmail);
@@ -32,6 +37,9 @@ public class SubscriptionServiceImpl implements SubscriptionService {
 
             follower.setSubscriptions(follower.getSubscriptions() - 1);
             subscriber.setFollowers(subscriber.getFollowers() - 1);
+
+            log.info("followerCount {}", follower.getSubscriptions());
+            log.info("subscriberCount {}", subscriber.getSubscriptions());
 
             userService.save(follower);
             userService.save(subscriber);

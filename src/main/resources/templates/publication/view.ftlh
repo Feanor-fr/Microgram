@@ -39,9 +39,12 @@
 
                     <div class="d-flex justify-content-between align-items-center px-3 py-2">
                         <div class="d-flex gap-3 fs-4">
-                            <button class="btn btn-link text-dark p-0" disabled title="Comments coming soon">
+                            <button type="button"
+                                    data-publication="${publication.id}"
+                                    class="btn btn-link text-dark p-0 like-btn">
                                 <i class="bi bi-heart"></i>
                             </button>
+
                             <button class="btn btn-link text-dark p-0" disabled title="Comments coming soon">
                                 <i class="bi bi-chat text-dark"></i>
                             </button>
@@ -84,7 +87,7 @@
 
                         <div id="commentsContainer">
                             <#if comments?size == 0>
-                                <p class="text-dark">Комментариев пока нет</p>
+<#--                                <p class="text-dark">Комментариев пока нет</p>-->
                             <#else>
                                 <#list comments as comment>
                                     <div class="comment-item mb-2 d-flex justify-content-between align-items-start">
@@ -195,5 +198,6 @@
         }
     </style>
 
+    <script src="/static/js/like.js"></script>
     <script src="/static/js/comment.js"></script>
 </@layout.layout>

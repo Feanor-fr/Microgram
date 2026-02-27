@@ -7,6 +7,7 @@ import kg.attractor.microgram.dto.PublicationCreateDto;
 import kg.attractor.microgram.dto.PublicationViewDto;
 import kg.attractor.microgram.model.User;
 import kg.attractor.microgram.service.CommentService;
+import kg.attractor.microgram.service.LikeService;
 import kg.attractor.microgram.service.PublicationService;
 import kg.attractor.microgram.util.UserHelper;
 import lombok.RequiredArgsConstructor;
@@ -26,6 +27,7 @@ public class PublicationController {
     private final PublicationService publicationService;
     private final UserHelper userHelper;
     private final CommentService commentService;
+    private final LikeService likeService;
 
     @GetMapping
     public String showAll(Model model){
@@ -136,6 +138,25 @@ public class PublicationController {
 
         Map<String, Object> response = new HashMap<>();
         response.put("commentsCount", publicationService.findById(publicationId).getComments());
+        return response;
+    }
+
+    @PostMapping("like/")
+    @ResponseBody
+    public Map<String, Object> addLike(@RequestParam Integer publicationId) {
+
+        return likeService.createAndReturn(publicationId);
+    }
+
+    @PostMapping("like/delete")
+    @ResponseBody
+    public Map<String, Object> deleteLike(@RequestParam Integer publicationId) {
+
+        likeService.delete(publicationId);
+
+        Map<String, Object> response = new HashMap<>();
+        response.put("likesCount", likeService.getLikesCount(publicationId));
+
         return response;
     }
 }

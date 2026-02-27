@@ -8,6 +8,7 @@ import kg.attractor.microgram.model.Publication;
 import kg.attractor.microgram.model.User;
 import kg.attractor.microgram.repository.PublicationRepository;
 import kg.attractor.microgram.service.ImageService;
+import kg.attractor.microgram.service.LikeService;
 import kg.attractor.microgram.service.PublicationService;
 import kg.attractor.microgram.service.UserService;
 import kg.attractor.microgram.util.ConvertHelper;
@@ -27,6 +28,7 @@ public class PublicationServiceImpl implements PublicationService {
     private final UserService userService;
     private final ImageService imageService;
     private final UserHelper userHelper;
+    private final LikeService likeService;
 
     @Override
     public void create(PublicationCreateDto publicationDto){
@@ -97,13 +99,28 @@ public class PublicationServiceImpl implements PublicationService {
         } else {
             publications = repository.findPublicationsFromSubscriptions(authUser.getEmail());
 
-            if (publications.isEmpty()) {
-                publications = repository.findAll(Sort.by(Sort.Direction.DESC, "createdDate"));
-            }
+//            if (publications.isEmpty()) {
+//                publications = repository.findAll(Sort.by(Sort.Direction.DESC, "createdDate"));
+//            }
         }
 
         return publications.stream()
-                .map(ConvertHelper::convertToPublicationViewDto)
+                .map(
+                        pub -> {
+                            PublicationViewDto publicationViewDto = ConvertHelper.convertToPublicationViewDto(pub);
+
+                            if (authUser != null) {
+                                Boolean liked = likeService
+                                        .existsByOwnerLike_EmailAndPublication_Id(
+                                                authUser.getEmail(),
+                                                pub.getId()
+                                        );
+                                publicationViewDto.setLikedByCurrentUser(liked);
+                            }
+
+                            return publicationViewDto;
+                        }
+                )
                 .toList();
     }
 }

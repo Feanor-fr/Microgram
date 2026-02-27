@@ -28,17 +28,34 @@
 
                             <div class="d-flex justify-content-between align-items-center px-3 py-2">
                                 <div class="d-flex gap-3 fs-4">
-                                    <button class="btn btn-link text-dark p-0" disabled title="Comments coming soon">
-                                        <i class="bi bi-heart"></i>
+                                    <button type="button"
+                                            data-publication="${publication.id}"
+                                            class="btn btn-link text-dark p-0 like-btn">
+                                        <i class="bi
+                                              <#if publication.likedByCurrentUser?? && publication.likedByCurrentUser>
+                                                   bi-heart-fill fill
+                                             <#else>
+                                              bi-heart
+                                             </#if>">
+                                        </i>
                                     </button>
-                                    <button class="btn btn-link text-dark p-0" disabled title="Comments coming soon">
-                                        <i class="bi bi-chat text-dark"></i>
-                                    </button>
+
+                                    <a href="/publication/${publication.id}"
+                                       class="btn btn-link text-dark p-0 d-flex align-items-center gap-1"
+                                       title="View comments">
+                                        <i class="bi bi-chat"></i>
+                                        <span class="small">
+                                         ${publication.comments!0}
+                                        </span>
+                                    </a>
+
                                 </div>
                             </div>
 
                             <div class="px-3 pb-1 text-dark">
-                                <strong>${publication.likes!0}</strong> likes
+                                <strong id="likes-count-${publication.id}">
+                                    ${publication.likes!0}
+                                </strong> likes
                             </div>
 
                             <div class="px-3 pb-2 text-dark">
@@ -79,4 +96,6 @@
             }
         }
     </style>
+
+    <script src="/static/js/like.js"></script>
 </@home.layout>

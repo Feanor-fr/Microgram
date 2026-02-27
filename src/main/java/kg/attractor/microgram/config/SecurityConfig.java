@@ -24,7 +24,6 @@ public class SecurityConfig {
                 .formLogin(login -> login
                         .loginPage("/auth/login")
                         .loginProcessingUrl("/auth/login")
-                        .defaultSuccessUrl("/")
 
                         .failureUrl("/auth/login?error=true")
                         .permitAll())
@@ -37,14 +36,17 @@ public class SecurityConfig {
                         .requestMatchers("/users/avatar").authenticated()
                         .requestMatchers(HttpMethod.POST, "/users/subscribe").authenticated()
                         .requestMatchers("/publication/create").authenticated()
-                        .requestMatchers(HttpMethod.POST, "/publication/delete/").authenticated()
-                        .requestMatchers("/publication/comment/").authenticated()
+                        .requestMatchers(HttpMethod.POST, "/publication/delete/**").authenticated()
+                        .requestMatchers("/publication/comment/**").authenticated()
                         .requestMatchers("/publication/comment/delete/").authenticated()
                         .requestMatchers("/images/**").permitAll()
                         .requestMatchers("/users/search").permitAll()
                         .requestMatchers("/users/profile/**").permitAll()
+                        .requestMatchers("/publication").permitAll()
                         .requestMatchers("/publication/**").permitAll()
-                        .requestMatchers("/auth/**").permitAll()
+                        .requestMatchers("/auth/login").permitAll()
+                        .requestMatchers(HttpMethod.POST, "/auth/register").permitAll()
+                        .requestMatchers(HttpMethod.GET, "/auth/register").permitAll()
                         .requestMatchers("/error").permitAll()
                         .requestMatchers(HttpMethod.GET, "/").permitAll()
 
