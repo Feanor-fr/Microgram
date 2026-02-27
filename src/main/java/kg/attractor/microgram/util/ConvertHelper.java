@@ -1,9 +1,7 @@
 package kg.attractor.microgram.util;
 
-import kg.attractor.microgram.dto.PublicationCreateDto;
-import kg.attractor.microgram.dto.PublicationViewDto;
-import kg.attractor.microgram.dto.UserDto;
-import kg.attractor.microgram.dto.UserDtoForView;
+import kg.attractor.microgram.dto.*;
+import kg.attractor.microgram.model.Comment;
 import kg.attractor.microgram.model.Publication;
 import kg.attractor.microgram.model.Subscription;
 import kg.attractor.microgram.model.User;
@@ -66,7 +64,7 @@ public class ConvertHelper {
                 .createdDate(publication.getCreatedDate())
                 .likes(publication.getLikes())
                 .comments(publication.getComments())
-                .owner(publication.getOwner().getLogin())
+                .owner(publication.getOwner().getEmail())
                 .build();
     }
 
@@ -77,5 +75,25 @@ public class ConvertHelper {
                 .subscriber(subscriber)
                 .build();
 
+    }
+
+    public static Comment convertToComment(CommentCreateDto commentCreateDto, Publication publication, User user){
+
+        return Comment.builder()
+                .commentText(commentCreateDto.getCommentText())
+                .createdDate(LocalDate.now())
+                .ownerComment(user)
+                .publication(publication)
+                .build();
+    }
+
+    public static CommentViewDto convertToCommentViewDto(Comment comment){
+
+        return CommentViewDto.builder()
+                .id(comment.getId())
+                .commentText(comment.getCommentText())
+                .createdDate(comment.getCreatedDate())
+                .ownerLogin(comment.getOwnerComment().getLogin())
+                .build();
     }
 }

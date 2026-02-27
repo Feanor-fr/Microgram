@@ -38,6 +38,18 @@ public class PublicationServiceImpl implements PublicationService {
     }
 
     @Override
+    public Publication findById(Integer id){
+
+        return repository.findById(id)
+                .orElseThrow(PublicationNotFoundException::new);
+    }
+
+    @Override
+    public void save(Publication publication){
+        repository.saveAndFlush(publication);
+    }
+
+    @Override
     public void delete(Integer id){
         User authUser = userHelper.getAuthUser();
 

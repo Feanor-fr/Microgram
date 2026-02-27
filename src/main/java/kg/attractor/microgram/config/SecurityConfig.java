@@ -38,6 +38,8 @@ public class SecurityConfig {
                         .requestMatchers(HttpMethod.POST, "/users/subscribe").authenticated()
                         .requestMatchers("/publication/create").authenticated()
                         .requestMatchers(HttpMethod.POST, "/publication/delete/").authenticated()
+                        .requestMatchers("/publication/comment/").authenticated()
+                        .requestMatchers("/publication/comment/delete/").authenticated()
                         .requestMatchers("/images/**").permitAll()
                         .requestMatchers("/users/search").permitAll()
                         .requestMatchers("/users/profile/**").permitAll()
